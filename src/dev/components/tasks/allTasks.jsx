@@ -1,5 +1,4 @@
 'use strict'
-
 import React from 'react';
 import NewTask from './newTask.jsx';
 
@@ -16,15 +15,21 @@ export default class AllTasks extends React.Component {
     this.state = foTaskList;
   }
 
+
+
   render(){
+    var addToList = (e) => {
+        let position = this.state.tasks.length + 1;
+        let task = { id:position, title: document.getElementById('newTask').value, pmodoros:[]} ;
+        this.setState({tasks: this.state.tasks.concat(task)})
+    }
 
     return (
         <div>
-          {this.state.tasks.map(function(task){
+           <NewTask taskList={foTaskList} addTo = {addToList.bind(this)}  />
+           {this.state.tasks.map(function(task){
                               return <li key={task.id}> {task.title} </li>
                           })}
-
-            <NewTask something={"jff"}  />
         </div>
     );
   }
