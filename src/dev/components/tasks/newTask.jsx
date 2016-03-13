@@ -15,7 +15,7 @@ export default class NewTask extends React.Component {
     return(
         <div>
             <input id="newTask" type="text" name="newTask" placeholder="Input your new task here" ></input>
-            <button onClick={this.props.addTo}> Submit</button>
+            <button onClick={this.props.addNewTask}> Submit</button>
         </div>
       );
     }
