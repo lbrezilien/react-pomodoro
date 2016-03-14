@@ -19713,7 +19713,7 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
 
-	    _this.state = foTaskList;
+	    _this.state = { tasks: foTaskList.tasks, currentTask: foTaskList.tasks[0] };
 	    return _this;
 	  }
 
@@ -19724,14 +19724,16 @@
 
 	      var addToTaskList = function addToTaskList(e) {
 	        var position = _this2.state.tasks.length + 1;
-	        var task = { id: position, title: document.getElementById('newTask').value, pmodoros: [] };
-	        _this2.setState({ tasks: _this2.state.tasks.concat(task) });
+	        var task = { id: position, title: document.getElementById('newTask').value, pomodoros: [] };
+	        _this2.setState({ tasks: _this2.state.tasks.concat(task), currentTask: _this2.state.currentTask });
 	      };
 
 	      var addToPomodoros = function addToPomodoros(e) {
-	        var position = _this2.state.tasks.length + 1;
-	        var task = { id: position, title: document.getElementById('newTask').value, pmodoros: [] };
-	        _this2.setState({ tasks: _this2.state.tasks.concat(task) });
+	        var position = _this2.state.currentTask.pomodoros.length + 1;
+	        var pomodoro = { id: position, title: document.getElementById('newPomodoro').value, status: '' };
+	        var task = _this2.state.currentTask;
+	        var currentTask = { id: task.id, title: task.title, pomodoros: task.pomodoros.concat(pomodoro) };
+	        _this2.setState({ tasks: _this2.state.tasks, currentTask: currentTask });
 	      };
 
 	      return _react2.default.createElement(
@@ -19745,7 +19747,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { style: { width: '60%', display: 'inline' } },
-	          _react2.default.createElement(_allItems2.default, { list: this.state.tasks[0].pomodoros, addNew: addToPomodoros, type: "Pomodoro" })
+	          _react2.default.createElement(_allItems2.default, { list: this.state.currentTask.pomodoros, addNew: addToPomodoros, type: "Pomodoro" })
 	        )
 	      );
 	    }
