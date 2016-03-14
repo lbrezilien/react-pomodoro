@@ -19703,7 +19703,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var foTaskList = { tasks: [{ id: 1, title: 'Go to the store', pomodoros: [{ id: 1, title: 'first take out the garbage', status: '' }] }, { id: 2, title: 'Buy Some Milk', pomodoros: [] }, { id: 3, title: 'Jump on the rain', pomodoros: [] }, { id: 4, title: 'Return Home', pomodoros: [] }] };
+	var foTaskList = { tasks: [{ id: 1, title: 'Go to the store', pomodoros: [{ id: 1, title: 'first take out the garbage', status: '' }] }, { id: 2, title: 'Buy Some Milk', pomodoros: [{ id: 1, title: 'Completely Differnet Pomodoro', status: '' }] }, { id: 3, title: 'Jump on the rain', pomodoros: [] }, { id: 4, title: 'Return Home', pomodoros: [] }] };
 
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
@@ -19736,18 +19736,23 @@
 	        _this2.setState({ tasks: _this2.state.tasks, currentTask: currentTask });
 	      };
 
+	      var setCurrentItem = function setCurrentItem(e, i, ro, des, et) {
+	        debugger;
+	        _this2.setState({ tasks: _this2.state.tasks });
+	      };
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(
 	          'div',
 	          { style: { width: '40%', display: 'inline' } },
-	          _react2.default.createElement(_allItems2.default, { list: this.state.tasks, addNew: addToTaskList, type: "Task" })
+	          _react2.default.createElement(_allItems2.default, { list: this.state.tasks, addNew: addToTaskList, type: "Task", setCurrentItem: setCurrentItem.bind(this) })
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { style: { width: '60%', display: 'inline' } },
-	          _react2.default.createElement(_allItems2.default, { list: this.state.currentTask.pomodoros, addNew: addToPomodoros, type: "Pomodoro" })
+	          _react2.default.createElement(_allItems2.default, { list: this.state.currentTask.pomodoros, addNew: addToPomodoros, type: "Pomodoro", setCurrentItem: setCurrentItem })
 	        )
 	      );
 	    }
@@ -19805,13 +19810,14 @@
 	  _createClass(AllTasks, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
 
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(_newItem2.default, { list: this.props.list, type: this.props.type, addNew: this.props.addNew.bind(this) }),
 	        this.props.list.map(function (task) {
-	          return _react2.default.createElement(_item2.default, { key: task.id, title: task.title });
+	          return _react2.default.createElement(_item2.default, { key: task.id, title: task.title, setItem: _this2.props.setCurrentItem });
 	        })
 	      );
 	    }
@@ -19922,7 +19928,7 @@
 
 	      return _react2.default.createElement(
 	        "li",
-	        null,
+	        { onClick: this.props.setItem },
 	        this.props.title
 	      );
 	    }

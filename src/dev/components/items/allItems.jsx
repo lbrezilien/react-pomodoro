@@ -19,7 +19,10 @@ export default class AllTasks extends React.Component {
     return (
         <div>
            <NewItem list={this.props.list} type={this.props.type} addNew = {this.props.addNew.bind(this)}  />
-           {this.props.list.map((task) => <Item key={task.id} title={task.title} />)}
+           {this.props.list.map((task) => {
+                return  <Item key={task.id} title={task.title} setItem={this.props.setCurrentItem} />
+             })
+           }
         </div>
     );
   }

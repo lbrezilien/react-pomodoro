@@ -3,7 +3,7 @@ import AllItems from './items/allItems.jsx'
 
 var foTaskList ={ tasks:[
   {id:1, title: 'Go to the store', pomodoros: [{id:1, title: 'first take out the garbage', status:''}]},
-  {id:2, title: 'Buy Some Milk', pomodoros: []},
+  {id:2, title: 'Buy Some Milk', pomodoros: [{id:1, title: 'Completely Differnet Pomodoro', status:''}]},
   {id:3, title: 'Jump on the rain', pomodoros: []},
   {id: 4, title: 'Return Home', pomodoros: []}
 ]}
@@ -31,13 +31,18 @@ export default class App extends React.Component {
         this.setState({tasks: this.state.tasks, currentTask: currentTask})
     }
 
+    var setCurrentItem = (e, i,ro,des,et) => {
+      debugger
+      this.setState({tasks: this.state.tasks})
+    }
+
   return (
           <div>
             <div style={{width: '40%', display: 'inline'}}>
-              <AllItems list={this.state.tasks} addNew={addToTaskList} type={"Task"} />
+              <AllItems list={this.state.tasks}  addNew={addToTaskList} type={"Task"} setCurrentItem={setCurrentItem.bind(this)} />
             </div>
             <div style={{width: '60%', display: 'inline'}}>
-              <AllItems list={this.state.currentTask.pomodoros} addNew={addToPomodoros} type={"Pomodoro"} />
+              <AllItems list={this.state.currentTask.pomodoros} addNew={addToPomodoros} type={"Pomodoro"} setCurrentItem={setCurrentItem}/>
             </div>
           </div>
     );
