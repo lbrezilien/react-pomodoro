@@ -13,7 +13,7 @@ export default class Item extends React.Component {
   render(){
 
     return(
-        <li onClick={this.props.setItem}>
+        <li onClick={this.props.setItem.bind(this)}>
           {this.props.title}
         </li>
       );

@@ -14,6 +14,13 @@ export default class App extends React.Component {
     this.state = {tasks: foTaskList.tasks, currentTask: foTaskList.tasks[0]}
   }
 
+   setCurrentItem() {
+    let currentState = this.props.self.state;
+    this.props.self.setState({
+      tasks: currentState.tasks,
+      currentTask: {id: this.props.id, title:this.props.title, pomodoros: this.props.pomodoros}
+    })
+  }
 
 
   render(){
@@ -31,18 +38,14 @@ export default class App extends React.Component {
         this.setState({tasks: this.state.tasks, currentTask: currentTask})
     }
 
-    var setCurrentItem = (e, i,ro,des,et) => {
-      debugger
-      this.setState({tasks: this.state.tasks})
-    }
 
   return (
           <div>
             <div style={{width: '40%', display: 'inline'}}>
-              <AllItems list={this.state.tasks}  addNew={addToTaskList} type={"Task"} setCurrentItem={setCurrentItem.bind(this)} />
+              <AllItems list={this.state.tasks}  addNew={addToTaskList} type={"Task"} setCurrentItem={this.setCurrentItem} self = {this}/>
             </div>
             <div style={{width: '60%', display: 'inline'}}>
-              <AllItems list={this.state.currentTask.pomodoros} addNew={addToPomodoros} type={"Pomodoro"} setCurrentItem={setCurrentItem}/>
+              <AllItems list={this.state.currentTask.pomodoros} addNew={addToPomodoros} type={"Pomodoro"} setCurrentItem={this.setCurrentItem}/>
             </div>
           </div>
     );
