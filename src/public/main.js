@@ -19723,8 +19723,13 @@
 	      var currentState = this.props.self.state;
 	      this.props.self.setState({
 	        tasks: currentState.tasks,
-	        currentTask: { id: this.props.id, title: this.props.title, pomodoros: this.props.pomodoros }
+	        currentTask: currentState.tasks[this.props.id - 1]
 	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.setState({ tasks: this.state.tasks, currentTask: this.state.tasks[0] });
 	    }
 	  }, {
 	    key: 'render',
@@ -19738,11 +19743,15 @@
 	      };
 
 	      var addToPomodoros = function addToPomodoros(e) {
-	        var position = _this2.state.currentTask.pomodoros.length + 1;
+	        //the problem is that Im only updating the state of the currentTask but not the regular task in the array
+	        var currentTaskIndex = _this2.state.tasks.indexOf(_this2.state.currentTask);
+	        var position = _this2.state.tasks[currentTaskIndex].pomodoros.length + 1;
 	        var pomodoro = { id: position, title: document.getElementById('newPomodoro').value, status: '' };
-	        var task = _this2.state.currentTask;
-	        var currentTask = { id: task.id, title: task.title, pomodoros: task.pomodoros.concat(pomodoro) };
-	        _this2.setState({ tasks: _this2.state.tasks, currentTask: currentTask });
+	        var task = _this2.state.tasks[currentTaskIndex];
+	        var taskPomodoros = task.pomodoros.concat(pomodoro);
+	        task.pomodoros = taskPomodoros;
+	        _this2.setState({ tasks: _this2.state.tasks, currentTask: _this2.state.tasks[currentTaskIndex] });
+	        // let newCurrentTask = {id: task.id, title: task.title, pomodoros: task.pomodoros.concat(pomodoro)}
 	      };
 
 	      return _react2.default.createElement(
@@ -19756,7 +19765,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { style: { width: '60%', display: 'inline' } },
-	          _react2.default.createElement(_allItems2.default, { list: this.state.currentTask.pomodoros, addNew: addToPomodoros, type: "Pomodoro", setCurrentItem: this.setCurrentItem })
+	          _react2.default.createElement(_allItems2.default, { list: this.state.currentTask.pomodoros, addNew: addToPomodoros, type: "Pomodoro", setCurrentItem: this.setCurrentItem, self: this })
 	        )
 	      );
 	    }

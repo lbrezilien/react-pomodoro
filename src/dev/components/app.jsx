@@ -18,10 +18,14 @@ export default class App extends React.Component {
     let currentState = this.props.self.state;
     this.props.self.setState({
       tasks: currentState.tasks,
-      currentTask: {id: this.props.id, title:this.props.title, pomodoros: this.props.pomodoros}
+      currentTask: currentState.tasks[this.props.id - 1]
     })
+
   }
 
+  componentDidMount(){
+    this.setState({tasks: this.state.tasks, currentTask: this.state.tasks[0]})
+  }
 
   render(){
     var addToTaskList = (e) => {
@@ -31,11 +35,15 @@ export default class App extends React.Component {
     }
 
     var addToPomodoros = (e) => {
-        let position = this.state.currentTask.pomodoros.length + 1;
+      //the problem is that Im only updating the state of the currentTask but not the regular task in the array
+        let currentTaskIndex = this.state.tasks.indexOf(this.state.currentTask)
+        let position = this.state.tasks[currentTaskIndex].pomodoros.length + 1;
         let pomodoro = { id:position, title: document.getElementById('newPomodoro').value, status: ''} ;
-        let task = this.state.currentTask
-        let currentTask = {id: task.id, title: task.title, pomodoros: task.pomodoros.concat(pomodoro)}
-        this.setState({tasks: this.state.tasks, currentTask: currentTask})
+        let task = this.state.tasks[currentTaskIndex]
+        let taskPomodoros = task.pomodoros.concat(pomodoro)
+        task.pomodoros = taskPomodoros
+        this.setState({tasks: this.state.tasks, currentTask: this.state.tasks[currentTaskIndex]})
+        // let newCurrentTask = {id: task.id, title: task.title, pomodoros: task.pomodoros.concat(pomodoro)}
     }
 
 
@@ -45,7 +53,7 @@ export default class App extends React.Component {
               <AllItems list={this.state.tasks}  addNew={addToTaskList} type={"Task"} setCurrentItem={this.setCurrentItem} self = {this}/>
             </div>
             <div style={{width: '60%', display: 'inline'}}>
-              <AllItems list={this.state.currentTask.pomodoros} addNew={addToPomodoros} type={"Pomodoro"} setCurrentItem={this.setCurrentItem}/>
+              <AllItems list={this.state.currentTask.pomodoros} addNew={addToPomodoros} type={"Pomodoro"} setCurrentItem={this.setCurrentItem} self = {this}/>
             </div>
           </div>
     );
