@@ -35,7 +35,6 @@ export default class App extends React.Component {
     }
 
     var addToPomodoros = (e) => {
-      //the problem is that Im only updating the state of the currentTask but not the regular task in the array
         let currentTaskIndex = this.state.tasks.indexOf(this.state.currentTask)
         let position = this.state.tasks[currentTaskIndex].pomodoros.length + 1;
         let pomodoro = { id:position, title: document.getElementById('newPomodoro').value, status: ''} ;
@@ -43,17 +42,18 @@ export default class App extends React.Component {
         let taskPomodoros = task.pomodoros.concat(pomodoro)
         task.pomodoros = taskPomodoros
         this.setState({tasks: this.state.tasks, currentTask: this.state.tasks[currentTaskIndex]})
-        // let newCurrentTask = {id: task.id, title: task.title, pomodoros: task.pomodoros.concat(pomodoro)}
     }
 
 
+
   return (
+
           <div>
             <div style={{width: '40%', display: 'inline'}}>
               <AllItems list={this.state.tasks}  addNew={addToTaskList} type={"Task"} setCurrentItem={this.setCurrentItem} self = {this}/>
             </div>
             <div style={{width: '60%', display: 'inline'}}>
-              <AllItems list={this.state.currentTask.pomodoros} addNew={addToPomodoros} type={"Pomodoro"} setCurrentItem={this.setCurrentItem} self = {this}/>
+              <AllItems list={this.state.currentTask.pomodoros} addNew={addToPomodoros} type={"Pomodoro"} setCurrentItem={''} self = {this}/>
             </div>
           </div>
     );

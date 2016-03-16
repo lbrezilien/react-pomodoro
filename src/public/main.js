@@ -19743,7 +19743,6 @@
 	      };
 
 	      var addToPomodoros = function addToPomodoros(e) {
-	        //the problem is that Im only updating the state of the currentTask but not the regular task in the array
 	        var currentTaskIndex = _this2.state.tasks.indexOf(_this2.state.currentTask);
 	        var position = _this2.state.tasks[currentTaskIndex].pomodoros.length + 1;
 	        var pomodoro = { id: position, title: document.getElementById('newPomodoro').value, status: '' };
@@ -19751,7 +19750,6 @@
 	        var taskPomodoros = task.pomodoros.concat(pomodoro);
 	        task.pomodoros = taskPomodoros;
 	        _this2.setState({ tasks: _this2.state.tasks, currentTask: _this2.state.tasks[currentTaskIndex] });
-	        // let newCurrentTask = {id: task.id, title: task.title, pomodoros: task.pomodoros.concat(pomodoro)}
 	      };
 
 	      return _react2.default.createElement(
@@ -19765,7 +19763,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { style: { width: '60%', display: 'inline' } },
-	          _react2.default.createElement(_allItems2.default, { list: this.state.currentTask.pomodoros, addNew: addToPomodoros, type: "Pomodoro", setCurrentItem: this.setCurrentItem, self: this })
+	          _react2.default.createElement(_allItems2.default, { list: this.state.currentTask.pomodoros, addNew: addToPomodoros, type: "Pomodoro", setCurrentItem: '', self: this })
 	        )
 	      );
 	    }
