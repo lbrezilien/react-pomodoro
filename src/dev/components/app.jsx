@@ -8,6 +8,10 @@ var foTaskList ={ tasks:[
   {id: 4, title: 'Return Home', pomodoros: []}
 ]}
 
+import AppBar from 'material-ui/lib/app-bar';
+
+
+
 export default class App extends React.Component {
     constructor(props){
       super(props);
@@ -57,6 +61,11 @@ export default class App extends React.Component {
   return (
 
           <div>
+          <AppBar
+            title="Title"
+            
+            iconClassNameRight="muidocs-icon-navigation-expand-more"
+          />
             <div style={{width: '40%', display: 'inline'}}>
               <AllItems list={this.state.tasks}  addNew={addToTaskList} type={"Task"} setCurrentItem={this.setCurrentItem} self = {this}/>
             </div>
