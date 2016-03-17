@@ -1,5 +1,6 @@
 import React from 'react';
 import AllItems from './items/allItems.jsx'
+import NewItem from './items/newItem.jsx';
 
 var foTaskList ={ tasks:[
   {id:1, title: 'Go to the store', pomodoros: [{id:1, title: 'first take out the garbage', status:''}]},
@@ -15,7 +16,6 @@ import AppBar from 'material-ui/lib/app-bar';
 export default class App extends React.Component {
     constructor(props){
       super(props);
-      debugger;
       if (localStorage['tasks']){
          let tasks = localStorage['tasks'];
       }else {
@@ -63,14 +63,17 @@ export default class App extends React.Component {
           <div>
           <AppBar
             title="Title"
-            
+
             iconClassNameRight="muidocs-icon-navigation-expand-more"
           />
             <div style={{width: '40%', display: 'inline'}}>
+            <NewItem list={this.state.tasks} type={"Task"} addNew = {addToTaskList.bind(this)}  />
+
               <AllItems list={this.state.tasks}  addNew={addToTaskList} type={"Task"} setCurrentItem={this.setCurrentItem} self = {this}/>
             </div>
             <div style={{width: '60%', display: 'inline'}}>
-              <AllItems list={this.state.currentTask.pomodoros} addNew={addToPomodoros} type={"Pomodoro"} setCurrentItem={()=>{}} self = {this}/>
+              <NewItem list={this.state.currentTask.pomodoros} type={"Pomodoro"} addNew = {addToPomodoros.bind(this)}  />
+              <AllItems list={this.state.currentTask.pomodoros}  setCurrentItem={()=>{}} self = {this}/>
             </div>
           </div>
     );

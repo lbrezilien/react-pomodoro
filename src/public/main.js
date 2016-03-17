@@ -19701,6 +19701,10 @@
 
 	var _allItems2 = _interopRequireDefault(_allItems);
 
+	var _newItem = __webpack_require__(162);
+
+	var _newItem2 = _interopRequireDefault(_newItem);
+
 	var _appBar = __webpack_require__(165);
 
 	var _appBar2 = _interopRequireDefault(_appBar);
@@ -19723,7 +19727,6 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
 
-	    debugger;
 	    if (localStorage['tasks']) {
 	      var tasks = localStorage['tasks'];
 	    } else {
@@ -19782,12 +19785,14 @@
 	        _react2.default.createElement(
 	          'div',
 	          { style: { width: '40%', display: 'inline' } },
+	          _react2.default.createElement(_newItem2.default, { list: this.state.tasks, type: "Task", addNew: addToTaskList.bind(this) }),
 	          _react2.default.createElement(_allItems2.default, { list: this.state.tasks, addNew: addToTaskList, type: "Task", setCurrentItem: this.setCurrentItem, self: this })
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { style: { width: '60%', display: 'inline' } },
-	          _react2.default.createElement(_allItems2.default, { list: this.state.currentTask.pomodoros, addNew: addToPomodoros, type: "Pomodoro", setCurrentItem: function setCurrentItem() {}, self: this })
+	          _react2.default.createElement(_newItem2.default, { list: this.state.currentTask.pomodoros, type: "Pomodoro", addNew: addToPomodoros.bind(this) }),
+	          _react2.default.createElement(_allItems2.default, { list: this.state.currentTask.pomodoros, setCurrentItem: function setCurrentItem() {}, self: this })
 	        )
 	      );
 	    }
@@ -19850,7 +19855,6 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_newItem2.default, { list: this.props.list, type: this.props.type, addNew: this.props.addNew.bind(this) }),
 	        this.props.list.map(function (task) {
 	          return _react2.default.createElement(_item2.default, { key: task.id, id: task.id, title: task.title, pomodoros: task.pomodoros, self: _this2.props.self, setItem: _this2.props.setCurrentItem });
 	        })
