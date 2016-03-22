@@ -18,9 +18,13 @@ export default class NewItem extends React.Component {
 
     return(
         <div>
-            <TextField placeholder={`Input your new ${this.props.type} here`} id={"new"+this.props.type} type="text" name={"new"+this.props.type} />
+        <div className="col-xs-7 col-xs-offset-2">
+            <TextField fullWidth={true} placeholder={`Input your new ${this.props.type} here`} id={"new"+this.props.type} type="text" name={"new"+this.props.type} />
+            </div>
+        <div className="col-xs-1 ">
             <FloatingActionButton  primary={true} onClick={this.props.addNew}><ContentAdd />
             </FloatingActionButton>
+        </div>
         </div>
       );
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import AllItems from './items/allItems.jsx'
 import NewItem from './items/newItem.jsx';
+import Card from 'material-ui/lib/card/card';
 
 var foTaskList ={ tasks:[
   {id:1, title: 'Go to the store', pomodoros: [{id:1, title: 'first take out the garbage', status:''}]},
@@ -31,6 +32,7 @@ export default class App extends React.Component {
     }
 
    setCurrentItem() {
+     debugger
     let currentState = this.props.self.state;
     this.props.self.setState({
       tasks: currentState.tasks,
@@ -59,23 +61,21 @@ export default class App extends React.Component {
 
 
   return (
-
-          <div>
-          <AppBar
-            title="Title"
-
-            iconClassNameRight="muidocs-icon-navigation-expand-more"
-          />
-            <div style={{width: '40%', display: 'inline'}}>
-            <NewItem list={this.state.tasks} type={"Task"} addNew = {addToTaskList.bind(this)}  />
-
-              <AllItems list={this.state.tasks}  addNew={addToTaskList} type={"Task"} setCurrentItem={this.setCurrentItem} self = {this}/>
-            </div>
-            <div style={{width: '60%', display: 'inline'}}>
-              <NewItem list={this.state.currentTask.pomodoros} type={"Pomodoro"} addNew = {addToPomodoros.bind(this)}  />
-              <AllItems list={this.state.currentTask.pomodoros}  setCurrentItem={()=>{}} self = {this}/>
-            </div>
+           <div>
+                 <AppBar title="React Pomodoro" />
+                  <div className="row ">
+                      <NewItem list={this.state.tasks} type={"Task"} addNew = {addToTaskList.bind(this)}  />
+                  </div>
+                  <div className="row" style={{padding: '2%'}}>
+                      <div className="col-xs-4">
+                          <AllItems list={this.state.tasks}  addNew={addToTaskList} type={"Task"} setCurrentItem={this.setCurrentItem} self = {this} />
+                      </div>
+                      <div className="col-xs-8">
+                          <AllItems list={this.state.currentTask.pomodoros}  setCurrentItem={()=>{}} self = {this}/>
+                          <NewItem list={this.state.currentTask.pomodoros} type={"Pomodoro"} addNew = {addToPomodoros.bind(this)}  />
+                      </div>
+                  </div>
           </div>
-    );
+       );
   }
 }
